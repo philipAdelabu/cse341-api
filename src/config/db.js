@@ -1,12 +1,12 @@
 import { MongoClient } from 'mongodb';
 
-const client = new MongoClient(process.env.MONGODB_URL);
+const db = new MongoClient(process.env.MONGODB_URL);
 
 export async function connectToMongoDB() {
   try {
-    await client.connect();
+    await db.connect();
     console.log("You successfully connected to MongoDB!");
-    return client;
+    return db;
   } catch (err) {
     console.dir(err);
     throw err;
@@ -15,5 +15,5 @@ export async function connectToMongoDB() {
 
 // Call this only when your application terminates
 export async function disconnectFromMongoDB() {
-  await client.close();
+  await db.close();
 }
