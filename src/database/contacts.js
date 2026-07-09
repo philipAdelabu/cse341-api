@@ -1,4 +1,4 @@
-const contacts = {
+export const contacts = {
      firstName: "John",
      lastName: "Doe",
      email: "johndoe@example.com",
@@ -7,3 +7,4 @@ const contacts = {
 }
 
 // firstName, lastName, email, favoriteColor, and birthday.
+
