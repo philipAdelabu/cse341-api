@@ -1,49 +1,51 @@
-import { MongoClient, ServerApiVersion } from 'mongodb';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config();
 
-var db;
-
-export async function connectDB() {
+let db = false;
+const uriDB = process.env.MONGODB_URL;
+async function connectDB() {
   if(db){
     console.log('Database already connected');
-    return db;
+    return;
   }
-
   try {
-    db = new MongoClient(process.env.MONGODB_URL, {
-  serverApi: {
-      version: ServerApiVersion.v1,
-      strict: true,
-      deprecationErrors: true,
-    }
-  });
-    await db.connect();
-    const dataB = db.db('adebisiphilip_db');
-    console.log("You successfully connected to MongoDB!");
-    return dataB;
+     await  mongoose.connect(uriDB);
+     console.log('MongoDB connected successfully');
+     db = true;
   } catch (err) {
-    console.dir(err);
     throw err;
   }
 }
 
 // Call this only when your application terminates
- export async function disconnectDB() {
+  async function disconnectDB() {
+  try{
   if(db){
-  console.log('Database shutting down.');
-  await db.close();
+  console.log('Database shutting down..');
+  await mongoose.disconnect();
+  db = false;
+  console.log('Database shutdown.')
   }else{
-    throw new Error('Database is not connected');
+    console.log('database already closed.')
+  }
+}catch(error){
+    throw error;
   }
 }
 
 export async function getDB(){
   try{
-   if(!db){
-     db = await connectDB();
-    return db;
-   }
-   return db;
+     await connectDB();
   }catch(error){
     throw new Error(error);
   }
+}
+
+export async function closeDB(){
+   try{
+    await disconnectDB();
+   }catch(error){
+     throw new Error(error);
+   }
 }

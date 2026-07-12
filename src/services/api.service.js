@@ -1,30 +1,42 @@
-import { getDB, disconnectDB} from '../config/db.js'
+import Contact from '../models/contact.js';
 
 class ApiService {
      constructor(){
 
      }
 
-     static async createProfile(data = {}){
+     static async createContact(data = {}){
             if(!data){
                 console.log("The data is empty");
                 return null;
             }
            try{
-            const db = await getDB();
-            const result = await db.inserts.contacts(data);
+            
+            const result = await Contact.create(data);
             return result;
            }catch(error){
             throw error;
-           }finally{
-            await disconnectDB();
            }
     
        }
     
     
-    static async getUsers(){
-          
+    static async getContact(contactId){
+          try{
+            const result = await Contact.findOne({id: contactId});
+            return result;
+           }catch(error){
+            throw error;
+           } 
+    }
+
+     static async getContacts(){
+          try{
+            const result = await Contact.find();
+            return result;
+           }catch(error){
+            throw error;
+           }   
     }
     
 }
