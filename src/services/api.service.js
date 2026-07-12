@@ -1,8 +1,20 @@
 import Contact from '../models/contact.js';
+import { readFile } from "fs/promises";
+
 
 class ApiService {
      constructor(){
 
+     }
+
+     static async getProfessional(){
+        try{
+        const data = await readFile(new URL("../database/user.json", import.meta.url));
+        const users = JSON.parse(data);
+        return users;
+        }catch(error){
+            throw error;
+        }
      }
 
      static async createContact(data = {}){
@@ -23,7 +35,7 @@ class ApiService {
     
     static async getContact(contactId){
           try{
-            const result = await Contact.findOne({id: contactId});
+            const result = await Contact.findOne({_id: contactId});
             return result;
            }catch(error){
             throw error;

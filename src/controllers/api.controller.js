@@ -10,7 +10,7 @@ class ApiController {
 
         try {
             const result = await ApiService.getProfessional()
-             sendSuccess(res, result, 'The profesional is retrieved successfully')
+             return res.json(result);
         } catch (error) {
             sendError(res, error.message || 'Failed to retrieve professional', error.statusCode || 500);
             next(error);

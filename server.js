@@ -23,7 +23,7 @@ app.use(router);
 const port = process.env.PORT || 8080;
 
 async function startServer(){
-     await getDB();
+      await getDB();
 
      const server = app.listen(port, () =>{
        console.log(`Server is running on port ${port}`);
@@ -31,7 +31,7 @@ async function startServer(){
 
      process.on("SIGINT", async () => {
          console.log('Server shutting down.. ');
-         await closeDB();
+      //   await closeDB();
          server.close(() => process.exit(0));
      })
 
