@@ -9,7 +9,7 @@ const doc = {
    description: 'CSE341 API Documentation'
  },
  host: 'cse341-api-7rz2.onrender.com:8080',
- schemes: ['http', 'https'],
+ schemes: ['https', 'http'],
  consumes: ['application/json'],
  produces: ['application/json'],
 };
