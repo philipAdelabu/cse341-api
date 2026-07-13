@@ -2,7 +2,7 @@
 async function apiFetch(url) {
   const response = await fetch(url);
   const data = await response.json();
-  return data[0];
+  return data;
 }
 
 const getData = async () => {
