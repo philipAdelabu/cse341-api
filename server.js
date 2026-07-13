@@ -31,7 +31,7 @@ async function startServer(){
 
      process.on("SIGINT", async () => {
          console.log('Server shutting down.. ');
-      //   await closeDB();
+          await closeDB();
          server.close(() => process.exit(0));
      })
 
