@@ -1,5 +1,7 @@
 import { version } from 'os';
 import swaggerAutogen from 'swagger-autogen';
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 const doc = {
@@ -8,10 +10,11 @@ const doc = {
    version: '2.0.0',
    description: 'CSE341 API Documentation'
  },
- host: 'https://cse341-api-7rz2.onrender.com:8080',
+ host: `${process.env.NODE_ENV === 'development' ? process.env.SWAGGER_HOST_LOCAL : process.env.SWAGGER_HOST}`,
  schemes: ['https', 'http'],
  consumes: ['application/json'],
  produces: ['application/json'],
+
 };
 
 

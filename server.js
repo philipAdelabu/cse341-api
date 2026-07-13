@@ -16,17 +16,16 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
+});
 
-// CORS configuration
-const corsOptions = {
-  origin: '*', 
-  methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-};
 
-app.use(cors(corsOptions));
+const swaggerFile = await readFile("./swagger-output.json", "utf-8"); 
 
-const swaggerFile  = await readFile(new URL("./swagger-output.json", import.meta.url));
 
 // Swagger UI setup - This should be early in your middleware stack
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(JSON.parse(swaggerFile), {
