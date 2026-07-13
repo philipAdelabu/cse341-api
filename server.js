@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
 import router from './src/routes/index.js';
 import { readFile } from "fs/promises";
+import cors from 'cors';
 
 
 
@@ -15,12 +16,15 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    next();
-});
+
+// CORS configuration
+const corsOptions = {
+  origin: '*', 
+  methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 
 const swaggerFile  = await readFile(new URL("./swagger-output.json", import.meta.url));
 
