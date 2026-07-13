@@ -11,6 +11,13 @@ const contactSchema = new mongoose.Schema({
           required: [true, 'Last name is required'],
           trim: true,
     },
+    email: {
+        type: String,
+        required: [true, 'Email is required'],
+        unique: true,
+        trim: true,
+    },
+
     favoriteColor: {
          type: String,
          trim: true,

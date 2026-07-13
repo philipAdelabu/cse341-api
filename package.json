@@ -12,8 +12,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --watch server.js",
-    "dev": "nodemon server.js"
+    "dev": "npm run swagger && nodemon app.js",
+    "start": "npm run swagger && node app.js",
+    "swagger": "node swagger.js",
+    "docs": "npm run swagger && echo 'Documentation generated successfully!'"
   },
   "dependencies": {
     "body-parser": "^2.3.0",
@@ -24,5 +26,8 @@
     "nodemon": "^3.1.14",
     "swagger-jsdoc": "^6.3.0",
     "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "swagger-autogen": "^2.23.7"
   }
 }

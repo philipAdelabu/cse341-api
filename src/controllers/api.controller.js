@@ -49,6 +49,29 @@ class ApiController {
         }
     }
 
+    static async updateContact(req, res, next){
+        try{
+            const contactId = req.params.contactId;
+            const data = req.body;
+           const result = await ApiService.updateContact(contactId, data);
+           sendSuccess(res, result, 'The data successfully updated');
+        }catch(error){
+            sendError(res, error.message || 'Failed to update a contact', error.statusCode || 500);
+            next(error);
+        }
+    }
+
+    static async deleteContact(req, res, next){
+        try{
+            const contactId = req.params.contactId;
+           const result = await ApiService.deleteContact(contactId);
+           sendSuccess(res, result, 'The contact deleted successfully');
+        }catch(error){
+            sendError(res, error.message || 'Failed to delete a contact', error.statusCode || 500);
+            next(error);
+        }
+    }
+
 }
 
 export default ApiController;

@@ -3,7 +3,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 let db = false;
-const uriDB = process.env.MONGODB_URL;
+let  uriDB 
+
+  if(process.env.NODE_ENV === 'development'){
+    uriDB = process.env.MONGODB_LOCAL_URL;
+  }else{
+    uriDB = process.env.MONGODB_URL;
+  }
+
 async function connectDB() {
   if(db){
     console.log('Database already connected');

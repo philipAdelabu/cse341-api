@@ -50,6 +50,24 @@ class ApiService {
             throw error;
            }   
     }
+
+    static async updateContact(contactId, data){
+        try{
+            const result = await Contact.findOneAndUpdate({_id: contactId}, data, {new: true});
+            return result;
+           }catch(error){
+            throw error; 
+           } 
+    }
+
+    static async deleteContact(contactId){
+        try{
+            const result = await Contact.findOneAndDelete({_id: contactId});
+            return result;
+           }catch(error){
+            throw error;
+           } 
+    }       
     
 }
 
