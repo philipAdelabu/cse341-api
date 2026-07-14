@@ -11,14 +11,23 @@ const doc = {
    description: 'CSE341 API Documentation'
  },
  host: `${process.env.NODE_ENV === 'development' ? process.env.SWAGGER_HOST_LOCAL : process.env.SWAGGER_HOST}`,
- schemes: ['https']
+ schemes: ['https', 'http'],
+ consumes: ['application/json'],
+ produces: ['application/json'],
+
 };
 
 
+const options = {
+  autoHeaders: true,
+  autoQuery: true,
+  autoBody: true,
+  autoQuery: true
+};
 
 const outputFile = './swagger-output.json';
 const endpointsFiles = ['./src/routes/index.js'];
 
 
 
-swaggerAutogen()(outputFile, endpointsFiles, doc);
+swaggerAutogen()(outputFile, endpointsFiles, doc, options);
