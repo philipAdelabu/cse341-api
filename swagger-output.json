@@ -8,14 +8,7 @@
   "host": "cse341-api-7rz2.onrender.com:8080",
   "basePath": "/",
   "schemes": [
-    "https",
-    "http"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
+    "https"
   ],
   "paths": {
     "/": {
