@@ -1,33 +1,52 @@
-import { version } from 'os';
 import swaggerAutogen from 'swagger-autogen';
 import dotenv from 'dotenv';
 dotenv.config();
 
-
 const doc = {
- info: {
-   title: 'API Documentation',
-   version: '2.0.0',
-   description: 'CSE341 API Documentation'
- },
- host: `${process.env.NODE_ENV === 'development' ? process.env.SWAGGER_HOST_LOCAL : process.env.SWAGGER_HOST}`,
- schemes: ['https', 'http'],
- consumes: ['application/json'],
- produces: ['application/json'],
+ 
+  openapi: "3.0.0",
 
-};
+  info: {
+    title: "API Documentation",
+    description: "CSE341 API Documentation",
+  },
 
+  servers: [
+    {
+      url: process.env.NODE_ENV === "development"
+        ? process.env.SWAGGER_HOST_LOCAL
+        : process.env.SWAGGER_HOST
+    }
+  ],
 
-const options = {
-  autoHeaders: true,
-  autoQuery: true,
-  autoBody: true,
-  autoQuery: true
+  components: {
+    schemas: {
+      ContactCreate: {
+        type: "object",
+        properties: {
+          firstName: { type: "string", example: "Steven" },
+          lastName: { type: "string", example: "Tom" },
+          email: { type: "string", format: "email", example: "tom@gmail.com" },
+          favoriteColor: { type: "string", example: "red" },
+          birthday: { type: "string", format: "date", example: "1990-02-10" }
+        },
+        required: ["firstName", "lastName", "email"]
+      },
+      ContactUpdate: {
+        type: "object",
+        properties: {
+          firstName: { type: "string", example: "Steven" },
+          lastName: { type: "string", example: "Tom" },
+          email: { type: "string", format: "email", example: "tom@gmail.com" },
+          favoriteColor: { type: "string", example: "blue" },
+          birthday: { type: "string", format: "date", example: "1990-02-10" }
+        }
+      }
+    }
+  }
 };
 
 const outputFile = './swagger-output.json';
 const endpointsFiles = ['./src/routes/index.js'];
 
-
-
-swaggerAutogen()(outputFile, endpointsFiles, doc, options);
+swaggerAutogen({ openapi: '3.0.0' })(outputFile, endpointsFiles, doc);

@@ -63,6 +63,9 @@ class ApiService {
     static async deleteContact(contactId){
         try{
             const result = await Contact.findOneAndDelete({_id: contactId});
+            if(!result){
+                throw new Error("Contact not found");
+            }
             return result;
            }catch(error){
             throw error;
